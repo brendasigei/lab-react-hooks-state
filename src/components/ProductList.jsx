@@ -12,7 +12,7 @@ function ProductList({ products, category, onCategoryChange, onAddToCart }) {
       <select
         value={category}
         onChange={(e) => onCategoryChange(e.target.value)}
-        className="mb-4 rounded border border-gray-300 p-2 text-gray-900"
+        className="mb-4 rounded border border-gray-300 p-2"
       >
         <option value="All">All</option>
         <option value="Produce">Produce</option>

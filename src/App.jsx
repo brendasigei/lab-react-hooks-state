@@ -31,6 +31,7 @@ function App() {
 
   return (
     <div
+      data-theme={darkMode ? "dark" : "light"}
       className={`min-h-screen p-6 ${
         darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
