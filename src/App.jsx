@@ -1,38 +1,50 @@
-import React, { useState } from 'react'
-import ProductList from './components/ProductList'
-import DarkModeToggle from './components/DarkModeToggle'
-import Cart from './components/Cart'
+import { useState } from "react";
+import DarkModeToggle from "./components/DarkModeToggle";
+import ProductList from "./components/ProductList";
+import Cart from "./components/Cart";
 
-const App = () => {
-  // TODO: Implement state for dark mode toggle
+// Sample data: replace with your starter data if it already exists
+const products = [
+  { id: 1, name: "Milk", category: "Dairy" },
+  { id: 2, name: "Cheese", category: "Dairy" },
+  { id: 3, name: "Apple", category: "Produce" },
+  { id: 4, name: "Carrot", category: "Produce" },
+  { id: 5, name: "Chicken", category: "Meat" },
+];
 
-  // TODO: Implement state for cart management
+function App() {
+  const [darkMode, setDarkMode] = useState(false); // light/dark theme
+  const [cart, setCart] = useState([]); // items added to the cart
+  const [category, setCategory] = useState("All"); // selected filter
 
-  // TODO: Implement state for category filtering
+  // Flip between light and dark mode
+  function handleToggleDarkMode() {
+    setDarkMode((prev) => !prev);
+  }
+
+  // Add an item to the cart, skipping items already in it
+  function handleAddToCart(product) {
+    if (!cart.some((item) => item.id === product.id)) {
+      setCart((prev) => [...prev, product]);
+    }
+  }
 
   return (
-    <div>
-      <h1>🛒 Shopping App</h1>
-      <p>
-        Welcome! Your task is to implement filtering, cart management, and dark
-        mode.
-      </p>
-
-      {/* TODO: Render DarkModeToggle and implement dark mode functionality */}
-
-      {/* TODO: Implement category filter dropdown */}
-      <label>Filter by Category: </label>
-      <select>
-        <option value="all">All</option>
-        <option value="Fruits">Fruits</option>
-        <option value="Dairy">Dairy</option>
-      </select>
-
-      <ProductList />
-
-      {/* TODO: Implement and render Cart component */}
+    <div
+      className={`min-h-screen p-6 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+      }`}
+    >
+      <DarkModeToggle darkMode={darkMode} onToggle={handleToggleDarkMode} />
+      <ProductList
+        products={products}
+        category={category}
+        onCategoryChange={setCategory}
+        onAddToCart={handleAddToCart}
+      />
+      <Cart cart={cart} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
